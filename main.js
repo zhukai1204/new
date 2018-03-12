@@ -9,7 +9,19 @@ let win
 
 function createWindow () {
   // 创建浏览器窗口。
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    autoHideMenuBar: true,
+    fullscreenable: false,
+    webPreferences: {
+        javascript: true,
+        plugins: true,
+        nodeIntegration: false, // 不集成 Nodejs
+        webSecurity: false,
+        preload: path.join(__dirname, './public/renderer.js') // 但预加载的 js 文件内仍可以使用 Nodejs 的 API
+    }
+  })
 
   // 然后加载应用的 index.html。
   // package中的DEV为true时，开启调试窗口。为false时使用编译发布版本
